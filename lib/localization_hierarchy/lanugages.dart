@@ -196,7 +196,8 @@ class Languages extends Translations {
           'PO No:': 'رقم أمر التوريد:',
           'Invoice No:': 'رقم الفاتورة:',
           'Customer Code:': 'كود العميل:',
-          'No host was found': 'اسم السيرفر خالي او غير صحيح',
+          'No host was found or network error':
+              'خطأ باسم السيرفر أو خطأ بالشبكة',
           'Saved': 'تم الحفظ',
           'Item Name': 'اسم الصنف',
           'Invoice Date': 'تاريخ الفاتورة',
@@ -207,6 +208,7 @@ class Languages extends Translations {
           'Date': 'التاريخ',
           'Debit': 'آجل',
           'Customer': 'العميل',
+          'Receipt Voucher': 'سند قبض',
           'Cash Flow Report': 'حركة حساب الخزينة',
           'You are not within the allowed range to make this transaction':
               'أنت لست ضمن المساحة المحددة لتنفيذ الفاتورة',

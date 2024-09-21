@@ -10,6 +10,8 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'new_invoice/receipt_dialog.dart';
+
 double totalPrice(
     {required List<InvDetailsModel> invoiceItems,
     required List<PODetailModel> salesPODetails}) {
@@ -71,6 +73,7 @@ Future<void> printPOpreview(
     {InvMasterModel? invMaster,
     PoMasterModel? poMaster,
     bool vatIncluded = false,
+    String? customerName,
     required List<InvDetailsModel> invoiceItems,
     required List<PODetailModel> salesPODetails,
     required bool isPO}) async {
@@ -310,5 +313,12 @@ Future<void> printPOpreview(
   await Printing.layoutPdf(
       onLayout: (PdfPageFormat format) async =>
           (await generateDocument()).save());
-  Get.offNamed('/index-screen');
+  customerName != null
+      ? Get.defaultDialog(
+          title: 'Receipt Voucher'.tr,
+          content: ReceiptDialog(
+            customerNameArgument: customerName,
+          ),
+        )
+      : Get.offNamed('/index-screen');
 }

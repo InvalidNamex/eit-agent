@@ -1,4 +1,6 @@
+import 'package:eit/controllers/receipt_controller.dart';
 import 'package:eit/screens/new_invoice/print_preview.dart';
+import 'package:eit/screens/new_invoice/receipt_dialog.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/sales_controller.dart';
@@ -17,14 +19,19 @@ Future<void> saveButtonFunctionality(
         : Get.offNamed('/index-screen');
   } else {
     await controller.postInvoice(invoice: apiInvoiceModel, planID: planID);
+    final receiptController = Get.find<ReceiptController>();
+    receiptController.receiptAmount.text =
+        controller.grandTotal.toStringAsFixed(2);
     isPrint
-        ? await printPreview(transID: controller.transID)
-        : Get.toNamed('/new-receipt', arguments: {
-            'custName': controller.customerModel?.custName,
-            'defaultAmount':
-                double.parse(controller.grandTotal.toStringAsFixed(2)),
-            'planID': planID
-          });
+        ? await printPreview(
+            transID: controller.transID,
+            customerName: controller.customerModel?.custName)
+        : Get.defaultDialog(
+            title: 'Receipt Voucher'.tr,
+            content: ReceiptDialog(
+              customerNameArgument: controller.customerModel?.custName,
+            ),
+          );
   }
   controller.invoiceItemsList.clear();
   controller.apiInvoiceItemList.clear();

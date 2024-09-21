@@ -173,7 +173,8 @@ class LoginScreen extends GetView<AuthController> {
                           controller.apiURLTextController.clear();
                           controller.secretKeyTextController.clear();
                         } catch (e) {
-                          AppToasts.errorToast('No host was found'.tr);
+                          AppToasts.errorToast(
+                              'No host was found or network error'.tr);
                           Logger logger = Logger();
                           logger.d(e);
                         }

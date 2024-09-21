@@ -112,7 +112,7 @@ class ReceiptController extends GetxController {
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         if (data['Success']) {
-          Get.offNamed('/home-screen');
+          Get.offNamed('/index-screen');
           AddVisitService addVisitService = Get.find<AddVisitService>();
           await addVisitService.saveVisit(
             custID: saveReceiptModel.custId!,
@@ -124,7 +124,7 @@ class ReceiptController extends GetxController {
           final decodedData = json.decode(dataString);
           int receiptCode = decodedData['TransID'];
           await getReceiptVouchers();
-          Get.back();
+          Get.offNamed('/index-screen');
           await generateReceiptPdf(
               agent: user.userName ?? 'agent'.tr,
               customerName:

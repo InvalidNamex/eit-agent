@@ -352,7 +352,6 @@ class NewInvoice extends GetView<SalesController> {
                     ),
                   ),
                   onPressed: () async {
-                    Get.offNamed('/index-screen');
                     await saveInvoice(
                         controller: controller,
                         payType: controller.payType.value,
