@@ -45,15 +45,24 @@ Future saveInvoice(
             gpsLocation: controller.customerModel!.gpsLocation!)) {
           final homeController = Get.find<HomeController>();
           if (homeController.enableCustomerLimit()) {
-            if (controller.calculateCustLimit(
-                custSign: controller.customerModel!.custCode!)) {
+            if (payType == 1) {
+              if (controller.calculateCustLimit(
+                  custSign: controller.customerModel!.custCode!)) {
+                await saveButtonFunctionality(
+                    controller: controller,
+                    isPrint: isPrint,
+                    apiInvoiceModel: apiInvoiceModel,
+                    planID: controller.customerModel?.planID);
+              } else {
+                AppToasts.errorToast(
+                    'Invoice total exceeds customer limits'.tr);
+              }
+            } else {
               await saveButtonFunctionality(
                   controller: controller,
                   isPrint: isPrint,
                   apiInvoiceModel: apiInvoiceModel,
                   planID: controller.customerModel?.planID);
-            } else {
-              AppToasts.errorToast('Invoice total exceeds customer limits'.tr);
             }
           } else {
             await saveButtonFunctionality(

@@ -21,7 +21,8 @@ Future<void> saveButtonFunctionality(
         ? await printPreview(transID: controller.transID)
         : Get.toNamed('/new-receipt', arguments: {
             'custName': controller.customerModel?.custName,
-            'defaultAmount': controller.grandTotal,
+            'defaultAmount':
+                double.parse(controller.grandTotal.toStringAsFixed(2)),
             'planID': planID
           });
   }
