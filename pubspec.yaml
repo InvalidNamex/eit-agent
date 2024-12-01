@@ -30,7 +30,7 @@ dependencies:
   path_provider: ^2.1.2
   pdf: ^3.6.0
   permission_handler: ^10.2.0
-  place_picker: ^0.10.0
+#  place_picker: ^0.10.0
   printing: ^5.13.2
   shared_preferences: ^2.2.2
   syncfusion_flutter_datagrid: ^25.1.35

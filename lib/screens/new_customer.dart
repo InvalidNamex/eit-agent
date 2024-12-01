@@ -1,13 +1,9 @@
 import 'package:eit/controllers/customer_controller.dart';
 import 'package:eit/custom_widgets/custom_appBar.dart';
-import 'package:eit/models/api/api_customer_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
-import 'package:place_picker/place_picker.dart';
 
 import '../constants.dart';
-import '../controllers/auth_controller.dart';
 import '../custom_widgets/custom_drawer.dart';
 import '../helpers/toast.dart';
 
@@ -19,7 +15,7 @@ class NewCustomer extends GetView<CustomerController> {
   TextEditingController custAddress = TextEditingController();
   TextEditingController custPhone = TextEditingController();
   TextEditingController custTaxNo = TextEditingController();
-  var latLng = Rx<LatLng?>(null);
+  // var latLng = Rx<LatLng?>(null);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -133,20 +129,22 @@ class NewCustomer extends GetView<CustomerController> {
                     padding: const EdgeInsets.all(8.0),
                     child: InkWell(
                       onTap: () async {
-                        await dotenv.load(fileName: ".env");
-                        LocationResult? result =
-                            await Get.to(PlacePicker(dotenv.env['MAPAPI']!));
-                        latLng.value = result?.latLng;
+                        // await dotenv.load(fileName: ".env");
+                        // LocationResult? result =
+                        //     await Get.to(PlacePicker(dotenv.env['MAPAPI']!));
+                        // latLng.value = result?.latLng;
+                        //todo: uncomment when package is fixed
                       },
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Obx(
-                            () => Icon(
+                            () => const Icon(
                               Icons.location_on_outlined,
-                              color: latLng.value == null
-                                  ? darkColor
-                                  : accentColor,
+                              // color: latLng.value == null
+                              //     ? darkColor
+                              //     : accentColor,
+                              color: darkColor,
                             ),
                           ),
                           FittedBox(
@@ -232,25 +230,26 @@ class NewCustomer extends GetView<CustomerController> {
                     ),
                   ),
                   onPressed: () async {
-                    if (latLng.value != null) {
-                      final authController = Get.find<AuthController>();
-                      if (newCustomerForm.currentState!.validate()) {
-                        ApiCustomerModel customerModel = ApiCustomerModel(
-                            custName: custName.text,
-                            custCode:
-                                custCode.text.isEmpty ? '-999' : custCode.text,
-                            address: custAddress.text,
-                            phoneNo: custPhone.text,
-                            taxNo:
-                                custTaxNo.text.isEmpty ? '0' : custTaxNo.text,
-                            latitude: latLng.value!.latitude.toString(),
-                            longitude: latLng.value!.longitude.toString(),
-                            salesRepId: authController.userModel!.saleRepID);
-                        await controller.saveCustomer(customerModel);
-                      }
-                    } else {
-                      AppToasts.errorToast('Unrecognized Location'.tr);
-                    }
+                    // if (latLng.value != null) {
+                    //   final authController = Get.find<AuthController>();
+                    //   if (newCustomerForm.currentState!.validate()) {
+                    //     ApiCustomerModel customerModel = ApiCustomerModel(
+                    //         custName: custName.text,
+                    //         custCode:
+                    //             custCode.text.isEmpty ? '-999' : custCode.text,
+                    //         address: custAddress.text,
+                    //         phoneNo: custPhone.text,
+                    //         taxNo:
+                    //             custTaxNo.text.isEmpty ? '0' : custTaxNo.text,
+                    //         latitude: latLng.value!.latitude.toString(),
+                    //         longitude: latLng.value!.longitude.toString(),
+                    //         salesRepId: authController.userModel!.saleRepID);
+                    //     await controller.saveCustomer(customerModel);
+                    //   }
+                    // } else {
+                    //   AppToasts.errorToast('Unrecognized Location'.tr);
+                    // }
+                    AppToasts.successToast("تحت الإنشاء");
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
